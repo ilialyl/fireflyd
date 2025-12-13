@@ -9,6 +9,7 @@ pub mod tests;
 
 pub mod mpris;
 
+/// Performs player-related functionalities.
 pub struct Player {
     sink: Sink,
     stream_handle: OutputStream,
@@ -23,6 +24,7 @@ impl Player {
         })
     }
 
+    /// Append audio source from path to the sink.
     pub fn append(&self, audio_path: &Path) -> Result<()> {
         let source = Decoder::try_from(File::open(audio_path)?)?;
         self.sink.append(source);
@@ -38,6 +40,7 @@ impl Player {
         self.sink.pause();
     }
 
+    /// Returns f64 as volume
     pub fn volume(&self) -> Volume {
         self.sink.volume() as Volume
     }
