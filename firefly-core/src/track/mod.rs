@@ -13,6 +13,7 @@ use mpris_server::{Metadata, Time};
 
 use crate::track::properties::Properties;
 
+/// Stores necessary information about a track.
 pub struct Track {
     pub pathbuf: PathBuf,
     pub metadata: Metadata,
@@ -31,6 +32,7 @@ impl Track {
         })
     }
 
+    /// Parses metadata from TaggedFile to Metadata type that comes with mpris-server crate.
     fn parse_metadata(tagged_file: &TaggedFile) -> Result<Metadata> {
         let mut metadata = Metadata::new();
         metadata.set_length(Some(Time::from_micros(
@@ -47,6 +49,7 @@ impl Track {
         Ok(metadata)
     }
 
+    /// Stores TaggedFile's Properties in a custom Properties type.
     fn parse_properties(tagged_file: &TaggedFile) -> Properties {
         Properties {
             bitrate: tagged_file.properties().audio_bitrate(),
