@@ -10,5 +10,5 @@ fn new() {
 #[test]
 fn play() {
     let player = Player::new().unwrap();
-    assert_eq!(player.playback_status(), PlaybackStatus::Paused)
+    assert_eq!(player.playback_status(), PlaybackStatus::Stopped)
 }
