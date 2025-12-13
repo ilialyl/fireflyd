@@ -1,6 +1,8 @@
+use std::{fs::File, path::Path};
+
 use anyhow::Result;
 use mpris_server::{PlaybackRate, PlaybackStatus, Volume};
-use rodio::{OutputStream, OutputStreamBuilder, Sink};
+use rodio::{Decoder, OutputStream, OutputStreamBuilder, Sink};
 
 #[cfg(test)]
 pub mod tests;
@@ -21,6 +23,13 @@ impl Player {
         })
     }
 
+    pub fn append(&self, audio_path: &Path) -> Result<()> {
+        let source = Decoder::try_from(File::open(audio_path)?)?;
+        self.sink.append(source);
+
+        Ok(())
+    }
+
     pub fn play(&self) {
         self.sink.play();
     }
@@ -31,6 +40,10 @@ impl Player {
 
     pub fn volume(&self) -> Volume {
         self.sink.volume() as Volume
+    }
+
+    pub fn set_volume(&self, value: Volume) {
+        self.sink.set_volume(value as f32);
     }
 
     pub fn playback_rate(&self) -> PlaybackRate {
