@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-firefly-core = { path = "../firefly-core" }
+firefly_core = { path = "../firefly_core" }
